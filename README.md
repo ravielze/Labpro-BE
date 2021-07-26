@@ -1,10 +1,13 @@
 # Labpro BE
 
+## Technology Stack Used
+
+- Most tech stack & utilities from **[oculi](http://github.com/ravielze/oculi)**
+
 ## Prerequisite
 
-- [Oculi](http://github.com/ravielze/oculi)
 - Postgresql
-- apib2swagger (optional)
+- apib2swagger (optional, for regenerate api documentation)
 
 ## Manual Instalation/Run
 

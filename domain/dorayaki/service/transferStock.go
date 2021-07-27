@@ -2,10 +2,16 @@ package service
 
 import (
 	"github.com/ravielze/Labpro-BE/constants"
+	dto "github.com/ravielze/Labpro-BE/model/dto/dorayaki"
 	"github.com/ravielze/oculi/request"
 )
 
-func (s *service) TransferStock(req request.Context, dorayakiId, fromShopId, toShopId, stock uint64) error {
+func (s *service) TransferStock(req request.Context, item dto.TransferDorayakiRequest) error {
+	fromShopId := item.FromShopID
+	dorayakiId := item.DorayakiID
+	toShopId := item.ToShopID
+	stock := item.Stock
+
 	fromStock, err := s.stock.GetOrCreate(req, fromShopId, dorayakiId)
 	if err != nil {
 		return err

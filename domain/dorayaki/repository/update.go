@@ -12,7 +12,7 @@ func (r *repository) Update(req request.Context, dorayakiId uint64, updateMap dt
 		Where("id = ?", dorayakiId).
 		Updates(updateMap.ToMap()).Error(); err != nil {
 		r.resource.Log.StandardError(logs.NewInfo(
-			"Todo.Repository.Update",
+			"Dorayaki.Repository.Update",
 			logs.KeyValue("ID", dorayakiId),
 			logs.KeyValue("RequestMap", updateMap.ToMap()),
 			logs.KeyValue("Error", err),

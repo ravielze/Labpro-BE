@@ -15,6 +15,7 @@ type (
 		TasteDescription string `json:"taste_description"`
 		dto.BaseModel
 	}
+
 	DorayakiResponse struct {
 		DorayakiBaseResponse
 		Stock uint64 `json:"stock"`

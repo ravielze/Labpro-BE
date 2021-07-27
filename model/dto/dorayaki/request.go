@@ -18,6 +18,19 @@ type (
 		ID uint64 `json:"id" binding:"required,min=1"`
 		DorayakiCreateRequest
 	}
+
+	StockUpdateRequest struct {
+		DorayakiID uint64 `json:"id_dorayaki" binding:"required,min=1"`
+		ShopID     uint64 `json:"id_shop" binding:"required,min=1"`
+		Stock      uint64 `json:"stock" binding:"required,min=0"`
+	}
+
+	TransferDorayakiRequest struct {
+		DorayakiID uint64 `json:"id_dorayaki" binding:"required,min=1"`
+		FromShopID uint64 `json:"id_from_shop" binding:"required,min=1"`
+		ToShopID   uint64 `json:"id_to_shop" binding:"required,min=1"`
+		Stock      uint64 `json:"stock" binding:"required,min=1"`
+	}
 )
 
 func (d DorayakiCreateRequest) ToDAO() dao.Dorayaki {

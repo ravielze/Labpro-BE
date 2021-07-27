@@ -2,10 +2,15 @@ package service
 
 import (
 	"github.com/ravielze/Labpro-BE/model/dao"
+	dto "github.com/ravielze/Labpro-BE/model/dto/dorayaki"
 	"github.com/ravielze/oculi/request"
 )
 
-func (s *service) UpdateStock(req request.Context, dorayakiId, shopId, stock uint64) (dao.Stock, error) {
+func (s *service) UpdateStock(req request.Context, item dto.StockUpdateRequest) (dao.Stock, error) {
+	shopId := item.ShopID
+	dorayakiId := item.DorayakiID
+	stock := item.Stock
+
 	// Try to init record if not exists
 	if _, err := s.stock.
 		GetOrCreate(req, shopId, dorayakiId); err != nil {

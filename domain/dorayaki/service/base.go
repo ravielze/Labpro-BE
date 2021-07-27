@@ -17,8 +17,8 @@ type (
 		GetDorayaki(req request.Context, dorayakiId uint64) (dao.Dorayaki, error)
 
 		GetStock(req request.Context, dorayakiId, shopId uint64) (dao.Stock, error)
-		UpdateStock(req request.Context, dorayakiId, shopId, stock uint64) (dao.Stock, error)
-		TransferStock(req request.Context, dorayakiId, fromShopId, toShopId, stock uint64) error
+		UpdateStock(req request.Context, item dto.StockUpdateRequest) (dao.Stock, error)
+		TransferStock(req request.Context, item dto.TransferDorayakiRequest) error
 		GetAllSoldByShop(req request.Context, shopId uint64) ([]dao.Stock, error)
 	}
 

@@ -25,7 +25,10 @@ type (
 		Dorayakis dorayaki.DorayakisResponse `json:"dorayaki"`
 	}
 
-	ShopsResponse []ShopInfoResponse
+	ShopsResponse struct {
+		Shops     []ShopInfoResponse `json:"shops"`
+		TotalPage int                `json:"total_page"`
+	}
 )
 
 func newInfoResponse(s dao.Shop) ShopInfoResponse {
@@ -41,12 +44,15 @@ func newInfoResponse(s dao.Shop) ShopInfoResponse {
 	}
 }
 
-func NewArrayResponse(s []dao.Shop) ShopsResponse {
+func NewArrayResponse(s []dao.Shop, totalpage int) ShopsResponse {
 	result := make([]ShopInfoResponse, len(s))
 	for i, x := range s {
 		result[i] = newInfoResponse(x)
 	}
-	return ShopsResponse(result)
+	return ShopsResponse{
+		Shops:     result,
+		TotalPage: totalpage,
+	}
 }
 
 func NewResponse(s dao.Shop, stock []dao.Stock) ShopResponse {

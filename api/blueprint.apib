@@ -2,11 +2,13 @@ FORMAT: 1A
 
 # Labpro Backend
 
-# Group Coupons
+# Group DEF
 
-## Coupon [/coupons/{id}]
-A coupon contains information about a percent-off or amount-off discount you
-might want to apply to a customer.
+# Group ABC
+Blablabla
+
+## Retrieve a Coupon [GET /coupons/{id}]
+Retrieves the coupon with the given ID.
 
 + Parameters
     + id (string)
@@ -14,20 +16,14 @@ might want to apply to a customer.
         The ID of the desired coupon.
 
 + Attributes (Coupon Base)
+
     + id: 250FF (string, required)
     + created: 1415203908 (number) - Time stamp
-
-### Retrieve a Coupon [GET]
-Retrieves the coupon with the given ID.
 
 + Response 200 (application/json)
     + Attributes (Coupon Base)
 
-## Coupons [/coupons{?limit}]
-
-+ Attributes (array[Coupon])
-
-### List all Coupons [GET]
+## List all Coupons [GET /coupons{?limit}]
 Returns a list of your coupons.
 
 + Parameters
@@ -39,9 +35,9 @@ Returns a list of your coupons.
         + Default: `10`
 
 + Response 200 (application/json)
-    + Attributes (Coupons)
+    + Attributes (array[Coupon Base])
 
-### Create a Coupon [POST]
+## Create a Coupon [POST /coupons]
 Creates a new Coupon.
 
 + Attributes (Coupon Base)
@@ -49,7 +45,7 @@ Creates a new Coupon.
 + Request (application/json)
 
 + Response 200 (application/json)
-    + Attributes (Coupon)
+    + Attributes (Coupon Base)
 
 # Data Structures
 

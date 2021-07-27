@@ -37,7 +37,7 @@
                 "operationId": "Retrieve a Coupon",
                 "description": "Retrieves the coupon with the given ID.",
                 "tags": [
-                    "Coupons"
+                    "ABC"
                 ],
                 "parameters": [
                     {
@@ -46,6 +46,32 @@
                         "description": "The ID of the desired coupon.",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Coupon Base"
+                                },
+                                {
+                                    "type": "object",
+                                    "required": [
+                                        "id"
+                                    ],
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "created": {
+                                            "type": "number",
+                                            "description": "Time stamp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "produces": [
@@ -63,9 +89,7 @@
                             "application/json": [
                                 {
                                     "percent_off": 25,
-                                    "redeem_by": 0,
-                                    "id": "250FF",
-                                    "created": 1415203908
+                                    "redeem_by": 0
                                 }
                             ]
                         },
@@ -79,7 +103,7 @@
                 "operationId": "List all Coupons",
                 "description": "Returns a list of your coupons.",
                 "tags": [
-                    "Coupons"
+                    "ABC"
                 ],
                 "parameters": [
                     {
@@ -103,9 +127,7 @@
                         "examples": {
                             "application/json": {
                                 "percent_off": 25,
-                                "redeem_by": 0,
-                                "id": "250FF",
-                                "created": 1415203908
+                                "redeem_by": 0
                             }
                         },
                         "schema": {
@@ -118,18 +140,8 @@
                                 "redeem_by": {
                                     "type": "number",
                                     "description": "Date after which the coupon can no longer be redeemed"
-                                },
-                                "id": {
-                                    "type": "string"
-                                },
-                                "created": {
-                                    "type": "number",
-                                    "description": "Time stamp"
                                 }
-                            },
-                            "required": [
-                                "id"
-                            ]
+                            }
                         }
                     }
                 },
@@ -137,7 +149,7 @@
                 "operationId": "Create a Coupon",
                 "description": "Creates a new Coupon.",
                 "tags": [
-                    "Coupons"
+                    "ABC"
                 ],
                 "parameters": [
                     {
@@ -155,32 +167,9 @@
         }
     },
     "definitions": {
-        "Coupon": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/Coupon Base"
-                },
-                {
-                    "type": "object",
-                    "required": [
-                        "id"
-                    ],
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "created": {
-                            "type": "number",
-                            "description": "Time stamp"
-                        }
-                    }
-                }
-            ]
-        },
-        "Coupons": {
-            "type": "array",
-            "items": {}
-        },
+        "Retrieve a Coupon": {},
+        "List all Coupons": {},
+        "Create a Coupon": {},
         "Coupon Base": {
             "type": "object",
             "properties": {
@@ -198,7 +187,11 @@
     "securityDefinitions": {},
     "tags": [
         {
-            "name": "Coupons"
+            "name": "DEF"
+        },
+        {
+            "name": "ABC",
+            "description": "Blablabla"
         }
     ]
 }

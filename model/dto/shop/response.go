@@ -49,9 +49,9 @@ func NewArrayResponse(s []dao.Shop) ShopsResponse {
 	return ShopsResponse(result)
 }
 
-func NewResponse(s dao.Shop, d []dao.Dorayaki, stock []dao.Stock) ShopResponse {
+func NewResponse(s dao.Shop, stock []dao.Stock) ShopResponse {
 	return ShopResponse{
 		Shop:      newInfoResponse(s),
-		Dorayakis: dorayaki.NewArrayResponse(d, stock),
+		Dorayakis: dorayaki.NewArrayResponse(stock),
 	}
 }

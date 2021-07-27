@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/ravielze/Labpro-BE/infrastructures/rest/health"
+	"github.com/ravielze/Labpro-BE/infrastructures/rest/shop"
 	"github.com/ravielze/Labpro-BE/resources"
 	"go.uber.org/dig"
 )
@@ -18,5 +19,6 @@ type (
 		dig.In
 
 		Health health.Controller
+		Shop   shop.Controller
 	}
 )

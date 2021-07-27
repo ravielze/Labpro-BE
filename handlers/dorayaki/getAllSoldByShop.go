@@ -9,7 +9,7 @@ import (
 
 func (h *handler) GetAllSoldByShop(req request.Context) (dto.DorayakisResponse, error) {
 	data := *req.Data()
-	shopId := functions.Atoi(data["parameter.id"], 0)
+	shopId := functions.Atoi(data["parameter.shopId"], 0)
 	if shopId == 0 {
 		return dto.DorayakisResponse{}, constants.ErrFailedToParseID
 	}

@@ -8,7 +8,7 @@ import (
 
 func (h *handler) DeleteDorayaki(req request.Context) error {
 	data := *req.Data()
-	dorayakiId := functions.Atoi(data["parameter.id"], 0)
+	dorayakiId := functions.Atoi(data["parameter.dorayakiId"], 0)
 	if dorayakiId == 0 {
 		return constants.ErrFailedToParseID
 	}

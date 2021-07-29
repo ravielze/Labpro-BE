@@ -7,19 +7,23 @@ Dorayaki Endpoint
 ## Create Dorayaki [POST /v1/dorayaki]
 Create a new desired dorayaki.
 
-+ Attributes (DorayakiCreateRequest)
 + Request (application/json)
+    + Attributes (DorayakiCreateRequest)
 
 + Response 200 (application/json)
     + Attributes (object)
         + code: 200 (number)
         + data (DorayakiBaseResponse)
++ Response 422 (application/json)
+    + Attributes (UnprocessableEntityError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
         
 ## Update Dorayaki [PATCH /v1/dorayaki]
 Update an existing dorayaki.
 
 + Request (application/json)
-+ Attributes (DorayakiUpdateRequest)
+    + Attributes (DorayakiUpdateRequest)
 
 + Response 200 (application/json)
     + Attributes (StandardSuccess)
@@ -27,6 +31,8 @@ Update an existing dorayaki.
     + Attributes (BadRequestError)
 + Response 404 (application/json)
     + Attributes (NotFoundError)
++ Response 422 (application/json)
+    + Attributes (UnprocessableEntityError)
 + Response 500 (application/json)
     + Attributes (ServerError)
 
@@ -45,19 +51,57 @@ Delete an existing dorayaki.
 + Response 500 (application/json)
     + Attributes (ServerError)
 
+## Get All Dorayaki [GET /v1/dorayaki{?page}]
+Get 10 existing dorayaki's information on specific page.
+
++ Parameters
+    + page (number, optional) - 1 Page consist of 10 dorayakis.
+        + Default: 1
++ Response 200 (application/json)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (DorayakisBaseResponse)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+## Get Dorayaki [GET /v1/dorayaki/{id}]
+Get an existing dorayaki's information.
+
++ Parameters
+    + id: 1 (number)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (DorayakiBaseResponse)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
 # Group Shop
 Shop Endpoint
 
 ## Create Shop [POST /v1/shop]
 Create a new desired dorayaki shop.
 
-+ Attributes (ShopCreateRequest)
 + Request (application/json)
+    + Attributes (ShopCreateRequest)
 
 + Response 200 (application/json)
     + Attributes (object)
         + code: 200 (number)
         + data (ShopCreateResponse)
++ Response 422 (application/json)
+    + Attributes (UnprocessableEntityError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
 
 ## Delete Shop [DELETE /v1/shop/{id}]
 Delete an existing shop.
@@ -112,7 +156,7 @@ Get 10 existing shop's information on specific page.
 Update an existing shop.
 
 + Request (application/json)
-+ Attributes (ShopUpdateRequest)
+    + Attributes (ShopUpdateRequest)
 
 + Response 200 (application/json)
     + Attributes (StandardSuccess)
@@ -120,6 +164,8 @@ Update an existing shop.
     + Attributes (BadRequestError)
 + Response 404 (application/json)
     + Attributes (NotFoundError)
++ Response 422 (application/json)
+    + Attributes (UnprocessableEntityError)
 + Response 500 (application/json)
     + Attributes (ServerError)
 
@@ -162,22 +208,24 @@ Get all dorayaki sold by specific shop.
 ## Transfer Stock [POST /v1/stock/transfer]
 Transfer dorayaki stock from one shop to another.
 
-+ Attributes (TransferDorayakiRequest)
 + Request (application/json)
+    + Attributes (TransferDorayakiRequest)
 + Response 200 (application/json)
     + Attributes (StandardSuccess)
 + Response 400 (application/json)
     + Attributes (BadRequestError)
 + Response 404 (application/json)
     + Attributes (NotFoundError)
++ Response 422 (application/json)
+    + Attributes (UnprocessableEntityError)
 + Response 500 (application/json)
     + Attributes (ServerError)
 
 ## Update Stock [PATCH /v1/stock]
 Update dorayaki stock on specific shop.
 
-+ Attributes (StockUpdateRequest)
 + Request (application/json)
+    + Attributes (StockUpdateRequest)
 + Response 200 (application/json)
     + Attributes (object)
         + code: 200 (number)
@@ -186,6 +234,8 @@ Update dorayaki stock on specific shop.
     + Attributes (BadRequestError)
 + Response 404 (application/json)
     + Attributes (NotFoundError)
++ Response 422 (application/json)
+    + Attributes (UnprocessableEntityError)
 + Response 500 (application/json)
     + Attributes (ServerError)
 
@@ -206,6 +256,10 @@ Update dorayaki stock on specific shop.
 ## BadRequestError (object)
 + code: 400 (number)
 + error: `Bad Request Error Info` (string)
+
+## UnprocessableEntityError (object)
++ code: 422 (number)
++ error: `Unprocessable Entity Error Info` (string)
 
 ## DorayakiCreateRequest (object)
 + name: `Doraboba` (string) - Required field with minimum 4 characters and maxed at 256 characters.
@@ -250,7 +304,9 @@ Update dorayaki stock on specific shop.
 + updated_at: `14-10-2021 19:32:40` (string)
 + stock: 10 (number)
 
-## DorayakisBaseResponse (array[DorayakiBaseResponse])
+## DorayakisBaseResponse (object)
++ dorayakis (array[DorayakiBaseResponse])
++ total_page: 1 (number)
 
 ## DorayakisResponse (array[DorayakiResponse])
 

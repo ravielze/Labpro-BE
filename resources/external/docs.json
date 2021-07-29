@@ -60,6 +60,48 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 422,
+                                "error": "Unprocessable Entity Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "summary": "Create Dorayaki",
@@ -73,7 +115,31 @@
                         "name": "body",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/DorayakiCreateRequest"
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Optional field and maxed at 1024 characters."
+                                },
+                                "taste_name": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                                },
+                                "taste_description": {
+                                    "type": "string",
+                                    "description": "Optional field and maxed at 1024 characters."
+                                }
+                            },
+                            "example": {
+                                "name": "Doraboba",
+                                "description": "Dorayaki isi boba",
+                                "taste_name": "Manis Asin",
+                                "taste_description": "manis asin aneh banget gak sih?"
+                            }
                         }
                     }
                 ],
@@ -146,6 +212,27 @@
                             }
                         }
                     },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 422,
+                                "error": "Unprocessable Entity Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "headers": {},
@@ -179,8 +266,165 @@
                         "name": "body",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/DorayakiUpdateRequest"
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Optional field and maxed at 1024 characters."
+                                },
+                                "taste_name": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                                },
+                                "taste_description": {
+                                    "type": "string",
+                                    "description": "Optional field and maxed at 1024 characters."
+                                }
+                            },
+                            "example": {
+                                "id": 1,
+                                "name": "Doraboba",
+                                "description": "Dorayaki isi boba",
+                                "taste_name": "Manis Asin",
+                                "taste_description": "manis asin aneh banget gak sih?"
+                            }
                         }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": {
+                                    "dorayakis": [
+                                        {
+                                            "id": 1,
+                                            "name": "Doraboba",
+                                            "description": "Dorayaki isi boba",
+                                            "taste_name": "Manis Asin",
+                                            "taste_description": "manis asin aneh banget gak sih?",
+                                            "created_at": "14-10-2021 19:32:40",
+                                            "updated_at": "14-10-2021 19:32:40"
+                                        }
+                                    ],
+                                    "total_page": 1
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "dorayakis": {
+                                            "type": "array",
+                                            "items": {}
+                                        },
+                                        "total_page": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get All Dorayaki",
+                "operationId": "Get All Dorayaki",
+                "description": "Get 10 existing dorayaki's information on specific page.",
+                "tags": [
+                    "Dorayaki"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "1 Page consist of 10 dorayakis.",
+                        "required": false,
+                        "type": "number",
+                        "default": 1
                     }
                 ],
                 "produces": [
@@ -295,6 +539,144 @@
                 "produces": [
                     "application/json"
                 ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": {
+                                    "id": 1,
+                                    "name": "Doraboba",
+                                    "description": "Dorayaki isi boba",
+                                    "taste_name": "Manis Asin",
+                                    "taste_description": "manis asin aneh banget gak sih?",
+                                    "created_at": "14-10-2021 19:32:40",
+                                    "updated_at": "14-10-2021 19:32:40"
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "taste_name": {
+                                            "type": "string"
+                                        },
+                                        "taste_description": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get Dorayaki",
+                "operationId": "Get Dorayaki",
+                "description": "Get an existing dorayaki's information.",
+                "tags": [
+                    "Dorayaki"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
             }
         },
         "/v1/shop": {
@@ -360,6 +742,48 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 422,
+                                "error": "Unprocessable Entity Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "summary": "Create Shop",
@@ -373,7 +797,41 @@
                         "name": "body",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/ShopCreateRequest"
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Optional field and maxed at 1024 characters."
+                                },
+                                "street": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                                },
+                                "district": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                                },
+                                "province": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                                }
+                            },
+                            "example": {
+                                "name": "Toko Kelontong Pak Totong",
+                                "description": "Buah kedondong, ayok beli dong!",
+                                "street": "Jl. Jalanan Nir Anini No. 5",
+                                "district": "Kepala Daging",
+                                "city": "Lakarta",
+                                "province": "Jawa Utara"
+                            }
                         }
                     }
                 ],
@@ -576,6 +1034,27 @@
                             }
                         }
                     },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 422,
+                                "error": "Unprocessable Entity Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "headers": {},
@@ -609,7 +1088,45 @@
                         "name": "body",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/ShopUpdateRequest"
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Optional field and maxed at 1024 characters."
+                                },
+                                "street": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                                },
+                                "district": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                                },
+                                "province": {
+                                    "type": "string",
+                                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                                }
+                            },
+                            "example": {
+                                "id": 1,
+                                "name": "Toko Kelontong Pak Totong",
+                                "description": "Buah kedondong, ayok beli dong!",
+                                "street": "Jl. Jalanan Nir Anini No. 5",
+                                "district": "Kepala Daging",
+                                "city": "Lakarta",
+                                "province": "Jawa Utara"
+                            }
                         }
                     }
                 ],
@@ -1227,6 +1744,27 @@
                             }
                         }
                     },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 422,
+                                "error": "Unprocessable Entity Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "headers": {},
@@ -1260,7 +1798,30 @@
                         "name": "body",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/TransferDorayakiRequest"
+                            "type": "object",
+                            "properties": {
+                                "dorayaki_id": {
+                                    "type": "number"
+                                },
+                                "id_from_shop": {
+                                    "type": "number",
+                                    "description": "The shop that has the stock."
+                                },
+                                "id_to_shop": {
+                                    "type": "number",
+                                    "description": "The target shop to transfer the stock."
+                                },
+                                "amount": {
+                                    "type": "number",
+                                    "description": "The amount to transfer."
+                                }
+                            },
+                            "example": {
+                                "dorayaki_id": 1,
+                                "id_from_shop": 1,
+                                "id_to_shop": 2,
+                                "amount": 5
+                            }
                         }
                     }
                 ],
@@ -1370,6 +1931,27 @@
                             }
                         }
                     },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 422,
+                                "error": "Unprocessable Entity Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "headers": {},
@@ -1403,7 +1985,24 @@
                         "name": "body",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/StockUpdateRequest"
+                            "type": "object",
+                            "properties": {
+                                "dorayaki_id": {
+                                    "type": "number"
+                                },
+                                "shop_id": {
+                                    "type": "number"
+                                },
+                                "stock": {
+                                    "type": "number",
+                                    "description": "The desired stock to set to. Minimum value is 0."
+                                }
+                            },
+                            "example": {
+                                "dorayaki_id": 1,
+                                "shop_id": 1,
+                                "stock": 1
+                            }
                         }
                     }
                 ],
@@ -1417,6 +2016,8 @@
         "Create Dorayaki": {},
         "Update Dorayaki": {},
         "Delete Dorayaki": {},
+        "Get All Dorayaki": {},
+        "Get Dorayaki": {},
         "Create Shop": {},
         "Delete Shop": {},
         "Get Shop": {},
@@ -1460,6 +2061,17 @@
             }
         },
         "BadRequestError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "number"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "UnprocessableEntityError": {
             "type": "object",
             "properties": {
                 "code": {
@@ -1606,8 +2218,16 @@
             }
         },
         "DorayakisBaseResponse": {
-            "type": "array",
-            "items": {}
+            "type": "object",
+            "properties": {
+                "dorayakis": {
+                    "type": "array",
+                    "items": {}
+                },
+                "total_page": {
+                    "type": "number"
+                }
+            }
         },
         "DorayakisResponse": {
             "type": "array",

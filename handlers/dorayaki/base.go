@@ -18,6 +18,7 @@ type (
 		EditDorayaki(req request.Context, item dto.DorayakiUpdateRequest) error
 		DeleteDorayaki(req request.Context) error
 		GetDorayaki(req request.Context) (dto.DorayakiBaseResponse, error)
+		GetAllDorayaki(req request.Context) (dto.DorayakisBaseResponse, error)
 
 		GetStock(req request.Context) (dto.DorayakiResponse, error)
 		UpdateStock(req request.Context, item dto.StockUpdateRequest) (dto.DorayakiResponse, error)

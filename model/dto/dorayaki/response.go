@@ -21,8 +21,11 @@ type (
 		Stock uint64 `json:"stock"`
 	}
 
-	DorayakisBaseResponse []DorayakiBaseResponse
-	DorayakisResponse     []DorayakiResponse
+	DorayakisBaseResponse struct {
+		Dorayakis []DorayakiBaseResponse `json:"dorayakis"`
+		TotalPage int                    `json:"total_page"`
+	}
+	DorayakisResponse []DorayakiResponse
 )
 
 func NewBaseResponse(d dao.Dorayaki) DorayakiBaseResponse {
@@ -52,11 +55,14 @@ func NewArrayResponse(stock []dao.Stock) DorayakisResponse {
 	return DorayakisResponse(result)
 }
 
-func NewArrayBaseResponse(d []dao.Dorayaki) DorayakisBaseResponse {
+func NewArrayBaseResponse(d []dao.Dorayaki, totalPage int) DorayakisBaseResponse {
 	result := make([]DorayakiBaseResponse, len(d))
 	for i, x := range d {
 		result[i] = NewBaseResponse(x)
 	}
 
-	return DorayakisBaseResponse(result)
+	return DorayakisBaseResponse{
+		Dorayakis: result,
+		TotalPage: totalPage,
+	}
 }

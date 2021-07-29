@@ -15,6 +15,7 @@ type (
 		EditDorayaki(req request.Context, item dto.DorayakiUpdateRequest) error
 		DeleteDorayaki(req request.Context, dorayakiId uint64) error
 		GetDorayaki(req request.Context, dorayakiId uint64) (dao.Dorayaki, error)
+		GetAllDorayaki(req request.Context, page int) ([]dao.Dorayaki, int, error)
 
 		GetStock(req request.Context, dorayakiId, shopId uint64) (dao.Stock, error)
 		UpdateStock(req request.Context, item dto.StockUpdateRequest) (dao.Stock, error)

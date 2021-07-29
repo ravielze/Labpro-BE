@@ -9,7 +9,7 @@ import (
 
 func (h *handler) GetDorayaki(req request.Context) (dto.DorayakiBaseResponse, error) {
 	data := *req.Data()
-	dorayakiId := functions.Atoi(data["parameter.id"], 0)
+	dorayakiId := functions.Atoi(data["parameter.dorayakiId"], 0)
 	if dorayakiId == 0 {
 		return dto.DorayakiBaseResponse{}, constants.ErrFailedToParseID
 	}

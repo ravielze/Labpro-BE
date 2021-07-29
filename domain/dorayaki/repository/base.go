@@ -10,6 +10,7 @@ import (
 type (
 	Repository interface {
 		Get(req request.Context, dorayakiId uint64) (dao.Dorayaki, error)
+		GetAll(req request.Context, page int) ([]dao.Dorayaki, int, error)
 		Create(req request.Context, item dao.Dorayaki) (dao.Dorayaki, error)
 		Update(req request.Context, dorayakiId uint64, updateMap dto.Map) error
 		Delete(req request.Context, dorayakiId uint64) error

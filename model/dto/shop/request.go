@@ -9,7 +9,7 @@ import (
 type (
 	ShopCreateRequest struct {
 		Name        string  `json:"name" binding:"required,max=256"`
-		Description *string `json:"description" binding:"max=1024"`
+		Description *string `json:"description" binding:"omitempty,max=1024"`
 		Street      string  `json:"street" binding:"required,min=4,max=256"`
 		District    string  `json:"district" binding:"required,min=4,max=128"`
 		City        string  `json:"city" binding:"required,min=4,max=128"`

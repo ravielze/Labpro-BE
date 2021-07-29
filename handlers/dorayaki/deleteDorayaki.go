@@ -12,5 +12,8 @@ func (h *handler) DeleteDorayaki(req request.Context) error {
 	if dorayakiId == 0 {
 		return constants.ErrFailedToParseID
 	}
+	if _, err := h.domain.Dorayaki.GetDorayaki(req, dorayakiId); err != nil {
+		return err
+	}
 	return h.domain.Dorayaki.DeleteDorayaki(req, dorayakiId)
 }

@@ -18,7 +18,7 @@ func (c *Controller) TransferStock(ec echo.Context) error {
 	result := ctx.Process(
 		oculiContext.NewFunction(c.Handler.Dorayaki.TransferStock, req, item),
 		nil,
-		constants.StandardDorayakiMappers,
+		constants.TransferDorayakiMappers,
 	)
 
 	return c.Resource.Responder.NewJSONResponse(ctx, req, result)

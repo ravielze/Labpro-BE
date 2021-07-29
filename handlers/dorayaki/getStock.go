@@ -18,6 +18,14 @@ func (h *handler) GetStock(req request.Context) (dto.DorayakiResponse, error) {
 		return dto.DorayakiResponse{}, constants.ErrFailedToParseID
 	}
 
+	if _, err := h.domain.Dorayaki.GetDorayaki(req, dorayakiId); err != nil {
+		return dto.DorayakiResponse{}, err
+	}
+
+	if _, err := h.domain.Shop.Get(req, shopId); err != nil {
+		return dto.DorayakiResponse{}, err
+	}
+
 	stock, err := h.domain.Dorayaki.GetStock(req, dorayakiId, shopId)
 	if err != nil {
 		return dto.DorayakiResponse{}, err

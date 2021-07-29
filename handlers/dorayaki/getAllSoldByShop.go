@@ -14,6 +14,10 @@ func (h *handler) GetAllSoldByShop(req request.Context) (dto.DorayakisResponse, 
 		return dto.DorayakisResponse{}, constants.ErrFailedToParseID
 	}
 
+	if _, err := h.domain.Shop.Get(req, shopId); err != nil {
+		return dto.DorayakisResponse{}, err
+	}
+
 	stocks, err := h.domain.Dorayaki.GetAllSoldByShop(req, shopId)
 	if err != nil {
 		return dto.DorayakisResponse{}, err

@@ -15,6 +15,8 @@
 2. Setup `.env`. Don't forget to start the database server before moving to the next step.
 3. For development, run `go run main.go`. Or, `go build main.go` and run the executable.
 
+To use with nodemon: `nodemon --exec go run main.go --signal SIGTERM`
+
 ## Usage
 
 __All API are documented__ in [localhost/docs](http://localhost/docs).

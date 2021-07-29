@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/ravielze/Labpro-BE/infrastructures/rest/dorayaki"
 	"github.com/ravielze/Labpro-BE/infrastructures/rest/health"
 	"github.com/ravielze/Labpro-BE/infrastructures/rest/shop"
 	"github.com/ravielze/Labpro-BE/resources"
@@ -18,7 +19,8 @@ type (
 	Controller struct {
 		dig.In
 
-		Health health.Controller
-		Shop   shop.Controller
+		Health   health.Controller
+		Shop     shop.Controller
+		Dorayaki dorayaki.Controller
 	}
 )

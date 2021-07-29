@@ -31,5 +31,11 @@ func (s *service) TransferStock(req request.Context, item dto.TransferDorayakiRe
 			dorayakiId, toStock.Stock+stock); err != nil {
 		return err
 	}
+
+	if err := s.stock.
+		Update(req, fromShopId,
+			dorayakiId, fromStock.Stock-stock); err != nil {
+		return err
+	}
 	return nil
 }

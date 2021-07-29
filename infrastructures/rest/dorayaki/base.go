@@ -21,9 +21,11 @@ func (c Controller) Register(ec *echo.Group) error {
 	g.POST("", c.CreateDorayaki)
 	g.PATCH("", c.EditDorayaki)
 	g.DELETE("/:dorayakiId", c.DeleteDorayaki)
-	g.GET("/stock/:shopId/:dorayakiId", c.GetStock)
-	g.GET("/stock/:shopId", c.GetAllSoldByShop)
-	g.POST("/stock/transfer", c.TransferStock)
-	g.PATCH("/stock", c.UpdateStock)
+
+	g2 := ec.Group("/stock")
+	g2.GET("/:shopId/:dorayakiId", c.GetStock)
+	g2.GET("/:shopId", c.GetAllSoldByShop)
+	g2.POST("/transfer", c.TransferStock)
+	g2.PATCH("", c.UpdateStock)
 	return nil
 }

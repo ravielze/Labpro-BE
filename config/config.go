@@ -8,7 +8,7 @@ import (
 
 type (
 	Env struct {
-		ServiceHost        string        `envconfig:"SERVICE_HOST" required:"true" default:"http://localhost"`
+		ServiceHost        string        `envconfig:"SERVICE_HOST" required:"true"`
 		ServiceState       int           `envconfig:"SERVICE_STATE" required:"true" default:"1"`
 		ServiceName        string        `envconfig:"SERVICE_NAME" required:"true"`
 		ServerPort         int           `envconfig:"SERVICE_PORT" default:"8000" required:"true"`
@@ -20,9 +20,9 @@ type (
 		DatabaseUsername          string        `envconfig:"DB_USERNAME" required:"true"`
 		DatabasePassword          string        `envconfig:"DB_PASSWORD" required:"true"`
 		DatabaseName              string        `envconfig:"DB_NAME" required:"true"`
-		DatabaseMaxIdleConnection int           `envconfig:"DB_MAX_IDLE_CONNECTION" default:"10"`
-		DatabaseMaxOpenConnection int           `envconfig:"DB_MAX_OPEN_CONNECTION" default:"25"`
-		DatabaseConnMaxLifetime   time.Duration `envconfig:"DB_CONNECTION_MAX_LIFE_TIME" default:"60s"`
+		DatabaseMaxIdleConnection int           `envconfig:"DB_MAX_IDLE_CONNECTION" default:"25"`
+		DatabaseMaxOpenConnection int           `envconfig:"DB_MAX_OPEN_CONNECTION" default:"50"`
+		DatabaseConnMaxLifetime   time.Duration `envconfig:"DB_CONNECTION_MAX_LIFE_TIME" default:"120s"`
 		DatabaseLogMode           bool          `envconfig:"DB_LOG_MODE" default:"true"`
 		DatabaseResetKey          string        `envconfig:"DB_RESET_KEY" required:"true"`
 	}

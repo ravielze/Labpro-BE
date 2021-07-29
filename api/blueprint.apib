@@ -2,57 +2,292 @@ FORMAT: 1A
 
 # Labpro Backend
 
-# Group DEF
+# Group Dorayaki
+Dorayaki Endpoint
+## Create Dorayaki [POST /v1/dorayaki]
+Create a new desired dorayaki.
 
-# Group ABC
-Blablabla
-
-## Retrieve a Coupon [GET /coupons/{id}]
-Retrieves the coupon with the given ID.
-
-+ Parameters
-    + id (string)
-
-        The ID of the desired coupon.
-
-+ Attributes (Coupon Base)
-
-    + id: 250FF (string, required)
-    + created: 1415203908 (number) - Time stamp
-
-+ Response 200 (application/json)
-    + Attributes (Coupon Base)
-
-## List all Coupons [GET /coupons{?limit}]
-Returns a list of your coupons.
-
-+ Parameters
-    + limit (number, optional)
-
-        A limit on the number of objects to be returned. Limit can range
-        between 1 and 100 items.
-
-        + Default: `10`
-
-+ Response 200 (application/json)
-    + Attributes (array[Coupon Base])
-
-## Create a Coupon [POST /coupons]
-Creates a new Coupon.
-
-+ Attributes (Coupon Base)
-
++ Attributes (DorayakiCreateRequest)
 + Request (application/json)
 
 + Response 200 (application/json)
-    + Attributes (Coupon Base)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (DorayakiBaseResponse)
+        
+## Update Dorayaki [PATCH /v1/dorayaki]
+Update an existing dorayaki.
+
++ Request (application/json)
++ Attributes (DorayakiUpdateRequest)
+
++ Response 200 (application/json)
+    + Attributes (StandardSuccess)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+## Delete Dorayaki [DELETE /v1/dorayaki/{id}]
+Delete an existing dorayaki.
+
++ Parameters
+    + id: 1 (number)
+
++ Response 200 (application/json)
+    + Attributes (StandardSuccess)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+# Group Shop
+Shop Endpoint
+
+## Create Shop [POST /v1/shop]
+Create a new desired dorayaki shop.
+
++ Attributes (ShopCreateRequest)
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (ShopCreateResponse)
+
+## Delete Shop [DELETE /v1/shop/{id}]
+Delete an existing shop.
+
++ Parameters
+    + id: 1 (number)
+
++ Response 200 (application/json)
+    + Attributes (StandardSuccess)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+## Get Shop [GET /v1/shop/{id}]
+Get an existing shop's information.
+
++ Parameters
+    + id: 1(number)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (ShopResponse)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+## Get All Shop [GET /v1/shop{?page}]
+Get 10 existing shop's information on specific page.
+
++ Parameters
+    + page (number, optional) - 1 Page consist of 10 shops.
+        + Default: 1
++ Response 200 (application/json)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (ShopsResponse)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+## Update Shop [PATCH /v1/shop]
+Update an existing shop.
+
++ Request (application/json)
++ Attributes (ShopUpdateRequest)
+
++ Response 200 (application/json)
+    + Attributes (StandardSuccess)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+# Group Stock
+Stock Endpoint
+
+## Get Stock [GET /v1/stock/{shop_id}/{dorayaki_id}]
+Get 10 existing shop's information on specific page.
+
++ Parameters
+    + shop_id: 1 (number)
+    + dorayaki_id: 1 (number)
++ Response 200 (application/json)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (DorayakiResponse)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+## Get All Dorayaki Sold [GET /v1/stock/{shop_id}]
+Get all dorayaki sold by specific shop.
+
++ Parameters
+    + shop_id: 1 (number)
++ Response 200 (application/json)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (DorayakisResponse)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+## Transfer Stock [POST /v1/stock/transfer]
+Transfer dorayaki stock from one shop to another.
+
++ Attributes (TransferDorayakiRequest)
++ Request (application/json)
++ Response 200 (application/json)
+    + Attributes (StandardSuccess)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
+
+## Update Stock [PATCH /v1/stock]
+Update dorayaki stock on specific shop.
+
++ Attributes (StockUpdateRequest)
++ Request (application/json)
++ Response 200 (application/json)
+    + Attributes (object)
+        + code: 200 (number)
+        + data (DorayakiResponse)
++ Response 400 (application/json)
+    + Attributes (BadRequestError)
++ Response 404 (application/json)
+    + Attributes (NotFoundError)
++ Response 500 (application/json)
+    + Attributes (ServerError)
 
 # Data Structures
 
-## Coupon Base (object)
-+ percent_off: 25 (number)
+## StandardSuccess (object)
++ code: 200 (number)
++ data: `success` (string)
 
-    A positive integer between 1 and 100 that represents the discount the
-    coupon will apply.
+## ServerError (object)
++ code: 500 (number)
++ error: `Server Error Info` (string)
 
-+ redeem_by (number) - Date after which the coupon can no longer be redeemed
+## NotFoundError (object)
++ code: 404 (number)
++ error: `Not Found Error Info` (string)
+
+## BadRequestError (object)
++ code: 400 (number)
++ error: `Bad Request Error Info` (string)
+
+## DorayakiCreateRequest (object)
++ name: `Doraboba` (string) - Required field with minimum 4 characters and maxed at 256 characters.
++ description: `Dorayaki isi boba` (string, optional) - Optional field and maxed at 1024 characters.
++ taste_name: `Manis Asin` (string) - Required field with minimum 4 characters and maxed at 128 characters.
++ taste_description: `manis asin aneh banget gak sih?` (string, optional) - Optional field and maxed at 1024 characters.
+
+## DorayakiUpdateRequest (object)
++ id: 1 (number)
++ name: `Doraboba` (string) - Required field with minimum 4 characters and maxed at 256 characters.
++ description: `Dorayaki isi boba` (string, optional) - Optional field and maxed at 1024 characters.
++ taste_name: `Manis Asin` (string) - Required field with minimum 4 characters and maxed at 128 characters.
++ taste_description: `manis asin aneh banget gak sih?` (string, optional) - Optional field and maxed at 1024 characters.
+
+## StockUpdateRequest (object)
++ dorayaki_id: 1 (number)
++ shop_id: 1 (number)
++ stock: 1 (number) - The desired stock to set to. Minimum value is 0.
+
+## TransferDorayakiRequest (object)
++ dorayaki_id: 1 (number)
++ id_from_shop: 1 (number) - The shop that has the stock.
++ id_to_shop: 2 (number) - The target shop to transfer the stock.
++ amount: 5 (number) - The amount to transfer.
+
+## DorayakiBaseResponse (object)
++ id: 1 (number)
++ name: `Doraboba` (string)
++ description: `Dorayaki isi boba` (string)
++ taste_name: `Manis Asin` (string)
++ taste_description: `manis asin aneh banget gak sih?` (string)
++ created_at: `14-10-2021 19:32:40` (string)
++ updated_at: `14-10-2021 19:32:40` (string)
+
+## DorayakiResponse (object)
++ id: 1 (number)
++ name: `Doraboba` (string)
++ description: `Dorayaki isi boba` (string)
++ taste_name: `Manis Asin` (string)
++ taste_description: `manis asin aneh banget gak sih?` (string)
++ created_at: `14-10-2021 19:32:40` (string)
++ updated_at: `14-10-2021 19:32:40` (string)
++ stock: 10 (number)
+
+## DorayakisBaseResponse (array[DorayakiBaseResponse])
+
+## DorayakisResponse (array[DorayakiResponse])
+
+## ShopCreateRequest (object)
++ name: `Toko Kelontong Pak Totong` (string) - Required field with minimum 4 characters and maxed at 256 characters.
++ description: `Buah kedondong, ayok beli dong!` (string, optional) - Optional field and maxed at 1024 characters.
++ street: `Jl. Jalanan Nir Anini No. 5` (string) - Required field with minimum 4 characters and maxed at 256 characters.
++ district: `Kepala Daging` (string) - Required field with minimum 4 characters and maxed at 128 characters.
++ city: `Lakarta` (string) - Required field with minimum 4 characters and maxed at 128 characters.
++ province: `Jawa Utara` (string) - Required field with minimum 4 characters and maxed at 128 characters.
+
+## ShopUpdateRequest (object)
++ id: 1 (number)
++ name: `Toko Kelontong Pak Totong` (string) - Required field with minimum 4 characters and maxed at 256 characters.
++ description: `Buah kedondong, ayok beli dong!` (string, optional) - Optional field and maxed at 1024 characters.
++ street: `Jl. Jalanan Nir Anini No. 5` (string) - Required field with minimum 4 characters and maxed at 256 characters.
++ district: `Kepala Daging` (string) - Required field with minimum 4 characters and maxed at 128 characters.
++ city: `Lakarta` (string) - Required field with minimum 4 characters and maxed at 128 characters.
++ province: `Jawa Utara` (string) - Required field with minimum 4 characters and maxed at 128 characters.
+
+## ShopInfoResponse (object)
++ id: 1 (number)
++ name: `Toko Kelontong Pak Totong` (string)
++ description: `Buah kedondong, ayok beli dong!` (string)
++ street: `Jl. Jalanan Nir Anini No. 5` (string)
++ district: `Kepala Daging` (string)
++ city: `Lakarta` (string)
++ province: `Jawa Utara` (string)
+
+## ShopResponse (object)
++ shop (ShopInfoResponse)
++ dorayaki (DorayakisResponse)
+
+## ShopCreateResponse (object)
++ shop (ShopInfoResponse)
++ dorayaki (array)
+
+## ShopsResponse (object)
++ shops (array[ShopInfoResponse])
++ total_page: 1 (number) - 10 shop per page

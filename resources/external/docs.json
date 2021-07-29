@@ -6,71 +6,180 @@
         "description": ""
     },
     "paths": {
-        "/coupons/{id}": {
-            "get": {
+        "/v1/dorayaki": {
+            "post": {
                 "responses": {
                     "200": {
                         "description": "OK",
                         "headers": {},
                         "examples": {
                             "application/json": {
-                                "percent_off": 25,
-                                "redeem_by": 0
+                                "code": 200,
+                                "data": {
+                                    "id": 1,
+                                    "name": "Doraboba",
+                                    "description": "Dorayaki isi boba",
+                                    "taste_name": "Manis Asin",
+                                    "taste_description": "manis asin aneh banget gak sih?",
+                                    "created_at": "14-10-2021 19:32:40",
+                                    "updated_at": "14-10-2021 19:32:40"
+                                }
                             }
                         },
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "percent_off": {
-                                    "type": "number",
-                                    "description": "A positive integer between 1 and 100 that represents the discount the\ncoupon will apply."
+                                "code": {
+                                    "type": "number"
                                 },
-                                "redeem_by": {
-                                    "type": "number",
-                                    "description": "Date after which the coupon can no longer be redeemed"
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "taste_name": {
+                                            "type": "string"
+                                        },
+                                        "taste_description": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 },
-                "summary": "Retrieve a Coupon",
-                "operationId": "Retrieve a Coupon",
-                "description": "Retrieves the coupon with the given ID.",
+                "summary": "Create Dorayaki",
+                "operationId": "Create Dorayaki",
+                "description": "Create a new desired dorayaki.",
                 "tags": [
-                    "ABC"
+                    "Dorayaki"
                 ],
                 "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "The ID of the desired coupon.",
-                        "required": true,
-                        "type": "string"
-                    },
                     {
                         "name": "body",
                         "in": "body",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/Coupon Base"
+                            "$ref": "#/definitions/DorayakiCreateRequest"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": "success"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
                                 },
-                                {
-                                    "type": "object",
-                                    "required": [
-                                        "id"
-                                    ],
-                                    "properties": {
-                                        "id": {
-                                            "type": "string"
-                                        },
-                                        "created": {
-                                            "type": "number",
-                                            "description": "Time stamp"
-                                        }
-                                    }
+                                "data": {
+                                    "type": "string"
                                 }
-                            ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update Dorayaki",
+                "operationId": "Update Dorayaki",
+                "description": "Update an existing dorayaki.",
+                "tags": [
+                    "Dorayaki"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DorayakiUpdateRequest"
                         }
                     }
                 ],
@@ -79,46 +188,116 @@
                 ]
             }
         },
-        "/coupons": {
-            "get": {
+        "/v1/dorayaki/{id}": {
+            "delete": {
                 "responses": {
                     "200": {
                         "description": "OK",
                         "headers": {},
                         "examples": {
-                            "application/json": [
-                                {
-                                    "percent_off": 25,
-                                    "redeem_by": 0
-                                }
-                            ]
+                            "application/json": {
+                                "code": 200,
+                                "data": "success"
+                            }
                         },
                         "schema": {
-                            "type": "array",
-                            "items": {}
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },
-                "summary": "List all Coupons",
-                "operationId": "List all Coupons",
-                "description": "Returns a list of your coupons.",
+                "summary": "Delete Dorayaki",
+                "operationId": "Delete Dorayaki",
+                "description": "Delete an existing dorayaki.",
                 "tags": [
-                    "ABC"
+                    "Dorayaki"
                 ],
                 "parameters": [
                     {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "A limit on the number of objects to be returned. Limit can range\nbetween 1 and 100 items.",
-                        "required": false,
-                        "type": "number",
-                        "default": 10
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
                     }
                 ],
                 "produces": [
                     "application/json"
                 ]
-            },
+            }
+        },
+        "/v1/shop": {
             "post": {
                 "responses": {
                     "200": {
@@ -126,37 +305,1105 @@
                         "headers": {},
                         "examples": {
                             "application/json": {
-                                "percent_off": 25,
-                                "redeem_by": 0
+                                "code": 200,
+                                "data": {
+                                    "shop": {
+                                        "id": 1,
+                                        "name": "Toko Kelontong Pak Totong",
+                                        "description": "Buah kedondong, ayok beli dong!",
+                                        "street": "Jl. Jalanan Nir Anini No. 5",
+                                        "district": "Kepala Daging",
+                                        "city": "Lakarta",
+                                        "province": "Jawa Utara"
+                                    },
+                                    "dorayaki": []
+                                }
                             }
                         },
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "percent_off": {
-                                    "type": "number",
-                                    "description": "A positive integer between 1 and 100 that represents the discount the\ncoupon will apply."
+                                "code": {
+                                    "type": "number"
                                 },
-                                "redeem_by": {
-                                    "type": "number",
-                                    "description": "Date after which the coupon can no longer be redeemed"
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "shop": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "street": {
+                                                    "type": "string"
+                                                },
+                                                "district": {
+                                                    "type": "string"
+                                                },
+                                                "city": {
+                                                    "type": "string"
+                                                },
+                                                "province": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "dorayaki": {}
+                                    }
                                 }
                             }
                         }
                     }
                 },
-                "summary": "Create a Coupon",
-                "operationId": "Create a Coupon",
-                "description": "Creates a new Coupon.",
+                "summary": "Create Shop",
+                "operationId": "Create Shop",
+                "description": "Create a new desired dorayaki shop.",
                 "tags": [
-                    "ABC"
+                    "Shop"
                 ],
                 "parameters": [
                     {
                         "name": "body",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/Coupon Base"
+                            "$ref": "#/definitions/ShopCreateRequest"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": {
+                                    "shops": [
+                                        {
+                                            "id": 1,
+                                            "name": "Toko Kelontong Pak Totong",
+                                            "description": "Buah kedondong, ayok beli dong!",
+                                            "street": "Jl. Jalanan Nir Anini No. 5",
+                                            "district": "Kepala Daging",
+                                            "city": "Lakarta",
+                                            "province": "Jawa Utara"
+                                        }
+                                    ],
+                                    "total_page": 1
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "shops": {
+                                            "type": "array",
+                                            "items": {}
+                                        },
+                                        "total_page": {
+                                            "type": "number",
+                                            "description": "10 shop per page"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get All Shop",
+                "operationId": "Get All Shop",
+                "description": "Get 10 existing shop's information on specific page.",
+                "tags": [
+                    "Shop"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "1 Page consist of 10 shops.",
+                        "required": false,
+                        "type": "number",
+                        "default": 1
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": "success"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update Shop",
+                "operationId": "Update Shop",
+                "description": "Update an existing shop.",
+                "tags": [
+                    "Shop"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ShopUpdateRequest"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/v1/shop/{id}": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": "success"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Delete Shop",
+                "operationId": "Delete Shop",
+                "description": "Delete an existing shop.",
+                "tags": [
+                    "Shop"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": {
+                                    "shop": {
+                                        "id": 1,
+                                        "name": "Toko Kelontong Pak Totong",
+                                        "description": "Buah kedondong, ayok beli dong!",
+                                        "street": "Jl. Jalanan Nir Anini No. 5",
+                                        "district": "Kepala Daging",
+                                        "city": "Lakarta",
+                                        "province": "Jawa Utara"
+                                    },
+                                    "dorayaki": [
+                                        {
+                                            "id": 1,
+                                            "name": "Doraboba",
+                                            "description": "Dorayaki isi boba",
+                                            "taste_name": "Manis Asin",
+                                            "taste_description": "manis asin aneh banget gak sih?",
+                                            "created_at": "14-10-2021 19:32:40",
+                                            "updated_at": "14-10-2021 19:32:40",
+                                            "stock": 10
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "shop": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "street": {
+                                                    "type": "string"
+                                                },
+                                                "district": {
+                                                    "type": "string"
+                                                },
+                                                "city": {
+                                                    "type": "string"
+                                                },
+                                                "province": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "dorayaki": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get Shop",
+                "operationId": "Get Shop",
+                "description": "Get an existing shop's information.",
+                "tags": [
+                    "Shop"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/v1/stock/{shop_id}/{dorayaki_id}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": {
+                                    "id": 1,
+                                    "name": "Doraboba",
+                                    "description": "Dorayaki isi boba",
+                                    "taste_name": "Manis Asin",
+                                    "taste_description": "manis asin aneh banget gak sih?",
+                                    "created_at": "14-10-2021 19:32:40",
+                                    "updated_at": "14-10-2021 19:32:40",
+                                    "stock": 10
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "taste_name": {
+                                            "type": "string"
+                                        },
+                                        "taste_description": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "stock": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get Stock",
+                "operationId": "Get Stock",
+                "description": "Get 10 existing shop's information on specific page.",
+                "tags": [
+                    "Stock"
+                ],
+                "parameters": [
+                    {
+                        "name": "shop_id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "dorayaki_id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/v1/stock/{shop_id}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": [
+                                    {
+                                        "id": 1,
+                                        "name": "Doraboba",
+                                        "description": "Dorayaki isi boba",
+                                        "taste_name": "Manis Asin",
+                                        "taste_description": "manis asin aneh banget gak sih?",
+                                        "created_at": "14-10-2021 19:32:40",
+                                        "updated_at": "14-10-2021 19:32:40",
+                                        "stock": 10
+                                    }
+                                ]
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {}
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get All Dorayaki Sold",
+                "operationId": "Get All Dorayaki Sold",
+                "description": "Get all dorayaki sold by specific shop.",
+                "tags": [
+                    "Stock"
+                ],
+                "parameters": [
+                    {
+                        "name": "shop_id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "x-example": "1",
+                        "type": "number"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/v1/stock/transfer": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": "success"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Transfer Stock",
+                "operationId": "Transfer Stock",
+                "description": "Transfer dorayaki stock from one shop to another.",
+                "tags": [
+                    "Stock"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TransferDorayakiRequest"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/v1/stock": {
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 200,
+                                "data": {
+                                    "id": 1,
+                                    "name": "Doraboba",
+                                    "description": "Dorayaki isi boba",
+                                    "taste_name": "Manis Asin",
+                                    "taste_description": "manis asin aneh banget gak sih?",
+                                    "created_at": "14-10-2021 19:32:40",
+                                    "updated_at": "14-10-2021 19:32:40",
+                                    "stock": 10
+                                }
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "taste_name": {
+                                            "type": "string"
+                                        },
+                                        "taste_description": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "stock": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 400,
+                                "error": "Bad Request Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 404,
+                                "error": "Not Found Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "headers": {},
+                        "examples": {
+                            "application/json": {
+                                "code": 500,
+                                "error": "Server Error Info"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "number"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update Stock",
+                "operationId": "Update Stock",
+                "description": "Update dorayaki stock on specific shop.",
+                "tags": [
+                    "Stock"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/StockUpdateRequest"
                         }
                     }
                 ],
@@ -167,19 +1414,325 @@
         }
     },
     "definitions": {
-        "Retrieve a Coupon": {},
-        "List all Coupons": {},
-        "Create a Coupon": {},
-        "Coupon Base": {
+        "Create Dorayaki": {},
+        "Update Dorayaki": {},
+        "Delete Dorayaki": {},
+        "Create Shop": {},
+        "Delete Shop": {},
+        "Get Shop": {},
+        "Get All Shop": {},
+        "Update Shop": {},
+        "Get Stock": {},
+        "Get All Dorayaki Sold": {},
+        "Transfer Stock": {},
+        "Update Stock": {},
+        "StandardSuccess": {
             "type": "object",
             "properties": {
-                "percent_off": {
-                    "type": "number",
-                    "description": "A positive integer between 1 and 100 that represents the discount the\ncoupon will apply."
+                "code": {
+                    "type": "number"
                 },
-                "redeem_by": {
+                "data": {
+                    "type": "string"
+                }
+            }
+        },
+        "ServerError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "number"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "NotFoundError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "number"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "BadRequestError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "number"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "DorayakiCreateRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Optional field and maxed at 1024 characters."
+                },
+                "taste_name": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                },
+                "taste_description": {
+                    "type": "string",
+                    "description": "Optional field and maxed at 1024 characters."
+                }
+            }
+        },
+        "DorayakiUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Optional field and maxed at 1024 characters."
+                },
+                "taste_name": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                },
+                "taste_description": {
+                    "type": "string",
+                    "description": "Optional field and maxed at 1024 characters."
+                }
+            }
+        },
+        "StockUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "dorayaki_id": {
+                    "type": "number"
+                },
+                "shop_id": {
+                    "type": "number"
+                },
+                "stock": {
                     "type": "number",
-                    "description": "Date after which the coupon can no longer be redeemed"
+                    "description": "The desired stock to set to. Minimum value is 0."
+                }
+            }
+        },
+        "TransferDorayakiRequest": {
+            "type": "object",
+            "properties": {
+                "dorayaki_id": {
+                    "type": "number"
+                },
+                "id_from_shop": {
+                    "type": "number",
+                    "description": "The shop that has the stock."
+                },
+                "id_to_shop": {
+                    "type": "number",
+                    "description": "The target shop to transfer the stock."
+                },
+                "amount": {
+                    "type": "number",
+                    "description": "The amount to transfer."
+                }
+            }
+        },
+        "DorayakiBaseResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "taste_name": {
+                    "type": "string"
+                },
+                "taste_description": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "DorayakiResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "taste_name": {
+                    "type": "string"
+                },
+                "taste_description": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "stock": {
+                    "type": "number"
+                }
+            }
+        },
+        "DorayakisBaseResponse": {
+            "type": "array",
+            "items": {}
+        },
+        "DorayakisResponse": {
+            "type": "array",
+            "items": {}
+        },
+        "ShopCreateRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Optional field and maxed at 1024 characters."
+                },
+                "street": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                },
+                "district": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                },
+                "city": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                },
+                "province": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                }
+            }
+        },
+        "ShopUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Optional field and maxed at 1024 characters."
+                },
+                "street": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 256 characters."
+                },
+                "district": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                },
+                "city": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                },
+                "province": {
+                    "type": "string",
+                    "description": "Required field with minimum 4 characters and maxed at 128 characters."
+                }
+            }
+        },
+        "ShopInfoResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "street": {
+                    "type": "string"
+                },
+                "district": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "province": {
+                    "type": "string"
+                }
+            }
+        },
+        "ShopResponse": {
+            "type": "object",
+            "properties": {
+                "shop": {
+                    "$ref": "#/definitions/ShopInfoResponse"
+                },
+                "dorayaki": {
+                    "$ref": "#/definitions/DorayakisResponse"
+                }
+            }
+        },
+        "ShopCreateResponse": {
+            "type": "object",
+            "properties": {
+                "shop": {
+                    "$ref": "#/definitions/ShopInfoResponse"
+                },
+                "dorayaki": {
+                    "type": "array",
+                    "items": {}
+                }
+            }
+        },
+        "ShopsResponse": {
+            "type": "object",
+            "properties": {
+                "shops": {
+                    "type": "array",
+                    "items": {}
+                },
+                "total_page": {
+                    "type": "number",
+                    "description": "10 shop per page"
                 }
             }
         }
@@ -187,11 +1740,16 @@
     "securityDefinitions": {},
     "tags": [
         {
-            "name": "DEF"
+            "name": "Dorayaki",
+            "description": "Dorayaki Endpoint"
         },
         {
-            "name": "ABC",
-            "description": "Blablabla"
+            "name": "Shop",
+            "description": "Shop Endpoint"
+        },
+        {
+            "name": "Stock",
+            "description": "Stock Endpoint"
         }
     ]
 }

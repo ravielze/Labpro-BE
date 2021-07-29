@@ -2,6 +2,7 @@ package external
 
 import (
 	"github.com/ravielze/Labpro-BE/config"
+	"github.com/ravielze/Labpro-BE/model/dao"
 	"github.com/ravielze/oculi/logs"
 	"github.com/ravielze/oculi/persistent/sql"
 	"github.com/ravielze/oculi/persistent/sql/postgre"
@@ -22,7 +23,7 @@ func NewPostgreSQL(config *config.Env, log logs.Logger) (sql.API, error) {
 			Username: config.DatabaseUsername,
 			Password: config.DatabasePassword,
 			DbName:   config.DatabaseName,
-		}), false,
+		}), config.IsDevelopment(),
 		sql.WithMaxIdleConnection(config.DatabaseMaxIdleConnection),
 		sql.WithMaxOpenConnection(config.DatabaseMaxOpenConnection),
 		sql.WithConnMaxLifetime(config.DatabaseConnMaxLifetime),
@@ -31,7 +32,7 @@ func NewPostgreSQL(config *config.Env, log logs.Logger) (sql.API, error) {
 }
 
 func NewDBManager(api sql.API) *DBManager {
-	api.RegisterObject()
+	api.RegisterObject(dao.Shop{}, dao.Dorayaki{}, dao.Stock{})
 	i, r := api.ObjectFunction(nil, nil)
 	i()
 	return &DBManager{

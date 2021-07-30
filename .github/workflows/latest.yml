@@ -29,7 +29,7 @@ jobs:
           port: 22
           username: ${{ secrets.HOST_USERNAME }}
           password: ${{ secrets.HOST_PASSWORD }}
-          source: "./server/*"
+          source: "./serverconf/*"
           target: "."
           overwrite: true
   deploy:
@@ -43,4 +43,4 @@ jobs:
           port: 22
           username: ${{ secrets.HOST_USERNAME }}
           password: ${{ secrets.HOST_PASSWORD }}
-          script: "docker-compose pull && docker-compose build && docker-compose up -d --remove-orphans"
+          script: "cd serverconf && docker-compose pull && docker-compose build && docker-compose up -d --remove-orphans"

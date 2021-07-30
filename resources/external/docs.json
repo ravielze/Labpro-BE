@@ -1818,7 +1818,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "dorayaki_id": {
+                                "id_dorayaki": {
                                     "type": "number"
                                 },
                                 "id_from_shop": {
@@ -1835,7 +1835,7 @@
                                 }
                             },
                             "example": {
-                                "dorayaki_id": 1,
+                                "id_dorayaki": 1,
                                 "id_from_shop": 1,
                                 "id_to_shop": 2,
                                 "amount": 5
@@ -2005,10 +2005,10 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "dorayaki_id": {
+                                "id_dorayaki": {
                                     "type": "number"
                                 },
-                                "shop_id": {
+                                "id_shop": {
                                     "type": "number"
                                 },
                                 "stock": {
@@ -2017,8 +2017,8 @@
                                 }
                             },
                             "example": {
-                                "dorayaki_id": 1,
-                                "shop_id": 1,
+                                "id_dorayaki": 1,
+                                "id_shop": 1,
                                 "stock": 1
                             }
                         }
@@ -2148,10 +2148,10 @@
         "StockUpdateRequest": {
             "type": "object",
             "properties": {
-                "dorayaki_id": {
+                "id_dorayaki": {
                     "type": "number"
                 },
-                "shop_id": {
+                "id_shop": {
                     "type": "number"
                 },
                 "stock": {
@@ -2163,7 +2163,7 @@
         "TransferDorayakiRequest": {
             "type": "object",
             "properties": {
-                "dorayaki_id": {
+                "id_dorayaki": {
                     "type": "number"
                 },
                 "id_from_shop": {

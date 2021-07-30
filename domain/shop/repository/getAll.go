@@ -21,6 +21,13 @@ func (r *repository) GetAll(req request.Context, page int) ([]dao.Shop, int, err
 	}
 
 	var result []dao.Shop
+	if page == 0 {
+		if err := req.Transaction().Model(dao.Shop{}).Find(&result).Error(); err != nil {
+			return nil, 0, err
+		}
+		return result, totalPage, nil
+	}
+
 	if err := req.Transaction().Model(dao.Shop{}).Offset(int(offset)).Limit(10).Find(&result).Error(); err != nil {
 		return nil, 0, err
 	}

@@ -22,7 +22,7 @@ type (
 	StockUpdateRequest struct {
 		DorayakiID uint64 `json:"id_dorayaki" binding:"required,min=1"`
 		ShopID     uint64 `json:"id_shop" binding:"required,min=1"`
-		Stock      uint64 `json:"stock" binding:"required,min=0"`
+		Stock      uint64 `json:"stock" binding:"omitempty,min=0"`
 	}
 
 	TransferDorayakiRequest struct {

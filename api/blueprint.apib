@@ -275,12 +275,12 @@ Update dorayaki stock on specific shop.
 + taste_description: `manis asin aneh banget gak sih?` (string, optional) - Optional field and maxed at 1024 characters.
 
 ## StockUpdateRequest (object)
-+ dorayaki_id: 1 (number)
-+ shop_id: 1 (number)
++ id_dorayaki: 1 (number)
++ id_shop: 1 (number)
 + stock: 1 (number) - The desired stock to set to. Minimum value is 0.
 
 ## TransferDorayakiRequest (object)
-+ dorayaki_id: 1 (number)
++ id_dorayaki: 1 (number)
 + id_from_shop: 1 (number) - The shop that has the stock.
 + id_to_shop: 2 (number) - The target shop to transfer the stock.
 + amount: 5 (number) - The amount to transfer.

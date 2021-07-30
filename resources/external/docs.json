@@ -696,7 +696,9 @@
                                         "street": "Jl. Jalanan Nir Anini No. 5",
                                         "district": "Kepala Daging",
                                         "city": "Lakarta",
-                                        "province": "Jawa Utara"
+                                        "province": "Jawa Utara",
+                                        "created_at": "14-10-2021 19:32:40",
+                                        "updated_at": "14-10-2021 19:32:40"
                                     },
                                     "dorayaki": []
                                 }
@@ -733,6 +735,12 @@
                                                     "type": "string"
                                                 },
                                                 "province": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
                                                     "type": "string"
                                                 }
                                             }
@@ -856,7 +864,9 @@
                                             "street": "Jl. Jalanan Nir Anini No. 5",
                                             "district": "Kepala Daging",
                                             "city": "Lakarta",
-                                            "province": "Jawa Utara"
+                                            "province": "Jawa Utara",
+                                            "created_at": "14-10-2021 19:32:40",
+                                            "updated_at": "14-10-2021 19:32:40"
                                         }
                                     ],
                                     "total_page": 1
@@ -1259,7 +1269,9 @@
                                         "street": "Jl. Jalanan Nir Anini No. 5",
                                         "district": "Kepala Daging",
                                         "city": "Lakarta",
-                                        "province": "Jawa Utara"
+                                        "province": "Jawa Utara",
+                                        "created_at": "14-10-2021 19:32:40",
+                                        "updated_at": "14-10-2021 19:32:40"
                                     },
                                     "dorayaki": [
                                         {
@@ -1307,6 +1319,12 @@
                                                     "type": "string"
                                                 },
                                                 "province": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
                                                     "type": "string"
                                                 }
                                             }
@@ -2316,6 +2334,12 @@
                     "type": "string"
                 },
                 "province": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "updated_at": {
                     "type": "string"
                 }
             }

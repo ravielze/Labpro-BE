@@ -27,7 +27,7 @@ Note: docker-compose intended to be used by server, because there are domain and
 
 ## Usage
 
-__All API are documented__ in [localhost/docs](http://localhost/docs).
+__All API are documented__ in [localhost/docs](http://localhost/docs). Live docs: [Live Docs](https://api-labpro.ravielze.com/docs)
 
 *(Please run the program in port 80 to use this hyperlink, or directly just access localhost:**YOUR_PORT**/docs)*
 

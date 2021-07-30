@@ -17,6 +17,14 @@
 
 To use with nodemon: `nodemon --exec go run main.go --signal SIGTERM`
 
+## Dockerized
+
+1. Copy all example in `server/env` to the same directories and setup all of it.
+2. Run `cd server` if you at project root.
+3. Run `docker-compose up`
+
+Note: docker-compose intended to be used by server, because there are domain and reverse proxy setup.
+
 ## Usage
 
 __All API are documented__ in [localhost/docs](http://localhost/docs).

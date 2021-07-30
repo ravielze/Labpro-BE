@@ -1,0 +1,22 @@
+providers:
+  docker:
+    exposedByDefault: false
+
+api:
+  dashboard: true
+
+accessLog: {}
+
+entryPoints:
+  http:
+    address: ":80"
+  https:
+    address: ":443"
+
+certificatesResolvers:
+  letsEncrypt:
+    acme:
+      email: 13519002@std.stei.itb.ac.id
+      storage: /etc/traefik/acme/acme.json
+      httpChallenge:
+        entryPoint: http

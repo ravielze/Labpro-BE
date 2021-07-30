@@ -1,0 +1,71 @@
+version: "3.7"
+services:
+    reverse-proxy:
+        image: traefik:latest
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.middlewares.redirect-https.redirectScheme.scheme=https"
+            - "traefik.http.middlewares.redirect-https.redirectScheme.permanent=true"
+            - "traefik.http.routers.dashboard.rule=Host(`traefik.ravielze.com`)"
+            - "traefik.http.routers.dashboard.tls.certresolver=letsEncrypt"
+            - "traefik.http.routers.dashboard.entrypoints=https"
+            - "traefik.http.routers.dashboard.service=api@internal"
+            - "traefik.http.routers.dashboard.middlewares=dashboard-auth"
+            - "traefik.http.middlewares.dashboard-auth.basicauth.usersfile=/etc/traefik/traefik-user"
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./traefik.yaml:/etc/traefik/traefik.yaml
+            - traefik:/etc/traefik/acme
+            - ./traefik-user:/etc/traefik/traefik-user
+    database:
+        image: postgres:latest
+        restart: always
+        env_file:
+            - env/postgres
+        container_name: postgres
+        volumes:
+            - psql_data:/var/lib/postgresql/data/
+    db-manager:
+        image: "adminer"
+        container_name: database-manager
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.db-manager.rule=Host(`database.ravielze.com`)"
+            - "traefik.http.routers.db-manager.tls.certresolver=letsEncrypt"
+            - "traefik.http.routers.db-manager.entrypoints=https"
+            - "traefik.http.routers.db-manager.service=db-manager"
+            - "traefik.http.routers.db-manager-http.rule=Host(`database.ravielze.com`)"
+            - "traefik.http.routers.db-manager-http.entrypoints=http"
+            - "traefik.http.routers.db-manager-http.middlewares=redirect-https"
+            - "traefik.http.routers.db-manager-http.service=db-manager"
+            - "traefik.http.services.db-manager.loadbalancer.server.port=8080"
+        depends_on:
+            - database
+    backend:
+        image: ghcr.io/ravielze/labpro-be/labpro-backend:latest
+        container_name: backend
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.backend.rule=Host(`api-labpro.ravielze.com`)"
+            - "traefik.http.routers.backend.tls.certresolver=letsEncrypt"
+            - "traefik.http.routers.backend.entrypoints=https"
+            - "traefik.http.routers.backend.service=backend"
+            - "traefik.http.routers.backend-http.rule=Host(`api-labpro.ravielze.com`)"
+            - "traefik.http.routers.backend-http`.entrypoints=http"
+            - "traefik.http.routers.backend-http.middlewares=redirect-https"
+            - "traefik.http.routers.backend-http.service=backend"
+            - "traefik.http.services.backend.loadbalancer.server.port=80"
+        env_file:
+            - env/backend
+        volumes:
+            - backend:/usr/bin/storage
+        depends_on:
+            - database
+
+volumes:
+    traefik:
+    psql_data:
+    backend:

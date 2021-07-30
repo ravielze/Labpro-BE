@@ -1,0 +1,2 @@
+POSTGRES_PASSWORD=example_password
+TZ=Asia/Jakarta
